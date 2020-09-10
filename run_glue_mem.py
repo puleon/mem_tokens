@@ -130,6 +130,7 @@ def main():
     )
     num_added_toks = tokenizer.add_tokens(['[mem]'])
     print('We have added', num_added_toks, 'tokens')
+    tokenizer.save_pretrained(training_args.output_dir)
     model = AutoModelForSequenceClassification.from_pretrained(
         model_args.model_name_or_path,
         from_tf=bool(".ckpt" in model_args.model_name_or_path),
