@@ -51,6 +51,11 @@ class GlueMemDataTrainingArguments:
     overwrite_cache: bool = field(
         default=False, metadata={"help": "Overwrite the cached training and evaluation sets"}
     )
+    mask_file: str = field(
+        default='',
+        metadata={"help": "The input data dir. Should contain the .tsv files (or other data files) for the task."}
+    )
+
 
     def __post_init__(self):
         self.task_name = self.task_name.lower()
