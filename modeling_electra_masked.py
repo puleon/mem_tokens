@@ -13,7 +13,11 @@ class ElectraModelMasked(ElectraModel):
 
     def __init__(self, config, external_attention_mask):
         super().__init__(config)
-        self.external_attention_mask = torch.Tensor(external_attention_mask, device=self.device)
+        if torch.cuda.is_available():
+            self.external_attention_mask = torch.Tensor(external_attention_mask).cuda()
+        else:
+            self.external_attention_mask = torch.Tensor(external_attention_mask)
+
 
     def get_extended_attention_mask(self, attention_mask: Tensor, input_shape: Tuple, device: device) -> Tensor:
         """Makes broadcastable attention mask and causal mask so that future and maked tokens are ignored.
